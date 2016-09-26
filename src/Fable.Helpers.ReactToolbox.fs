@@ -261,7 +261,7 @@ type CheckboxProps =
     | Label of U2<React.ReactNode, string>
     | Name of string
     | OnBlur of Function
-    | OnChange of Function
+    | OnChange of (bool -> unit)
     | Theme of CheckboxTheme
     interface IReactToolboxProp
 let Checkbox = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/checkbox"
@@ -870,7 +870,7 @@ type SwitchProps =
     | Label of string
     | Name of string
     | OnBlur of Function
-    | OnChange of Function
+    | OnChange of (bool -> unit)
     | OnFocus of Function
     | Theme of SwitchTheme
     interface IReactToolboxProp
@@ -911,7 +911,7 @@ type TabsProps =
     | Children of React.ReactNode
     | DisableAnimatedBottomBorder of bool
     | Index of int
-    | OnChange of Func<int,unit>
+    | OnChange of (int -> unit)
     | Theme of TabsTheme
     interface IReactToolboxProp
 let Tabs = importMember<ComponentClass<IHTMLProp list>> "react-toolbox/lib/tabs"
