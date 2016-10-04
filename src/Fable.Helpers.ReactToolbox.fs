@@ -188,7 +188,7 @@ type CardProps =
     | Raised of bool
     | Theme of CardTheme
     interface IReactToolboxProp
-let Card = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/card"
+let Card = importMember<ComponentClass<IHTMLProp list>> "react-toolbox/lib/card"
 let inline card b c = Fable.Helpers.React.from Card b c
 [<KeyValueList>]
 type CardActionsTheme =
@@ -198,7 +198,7 @@ type CardActionsProps =
     | Children of React.ReactNode
     | Theme of CardActionsTheme
     interface IReactToolboxProp
-let CardActions = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/card"
+let CardActions = importMember<ComponentClass<IHTMLProp list>> "react-toolbox/lib/card"
 let inline cardActions b c = Fable.Helpers.React.from CardActions b c
 [<KeyValueList>]
 type CardMediaTheme =
@@ -216,7 +216,7 @@ type CardMediaProps =
     | Image of U2<React.ReactNode, string>
     | Theme of CardMediaTheme
     interface IReactToolboxProp
-let CardMedia = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/card"
+let CardMedia = importMember<ComponentClass<IHTMLProp list>> "react-toolbox/lib/card"
 let inline cardMedia b c = Fable.Helpers.React.from CardMedia b c
 [<KeyValueList>]
 type CardTextTheme =
@@ -226,7 +226,7 @@ type CardTextProps =
     | Children of React.ReactNode
     | Theme of CardTextTheme
     interface IReactToolboxProp
-let CardText = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/card"
+let CardText = importMember<ComponentClass<IHTMLProp list>> "react-toolbox/lib/card"
 let inline cardText b c = Fable.Helpers.React.from CardText b c
 [<KeyValueList>]
 type CardTitleTheme =
@@ -242,7 +242,7 @@ type CardTitleProps =
     | Theme of CardTitleTheme
     | Title of U2<React.ReactNode, string>
     interface IReactToolboxProp
-let CardTitle = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/card"
+let CardTitle = importMember<ComponentClass<IHTMLProp list>> "react-toolbox/lib/card"
 let inline cardTitle b c = Fable.Helpers.React.from CardTitle b c
 
 [<KeyValueList>]
@@ -368,13 +368,17 @@ type DrawerTheme =
 type DrawerProps =
     | Active of bool
     | Children of React.ReactNode
-    | OnOverlayClick of Function
+    | OnOverlayClick of (React.MouseEvent -> unit)
     | Theme of DrawerTheme
     | Type of (* TODO StringEnum left | right *) string
     interface IReactToolboxProp
 let Drawer = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/drawer"
 let inline drawer b c = Fable.Helpers.React.from Drawer b c
 
+
+type DropdownWrapper<'TVal,'T> =
+    { item: 'T
+      value: 'TVal }
 [<KeyValueList>]
 type DropdownTheme =
     | Active of string
@@ -390,7 +394,7 @@ type DropdownTheme =
     | Value of string
     | Values of string
 [<KeyValueList>]
-type DropdownProps =
+type DropdownProps<'TVal,'T> =
     | AllowBlank of bool
     | Auto of bool
     | Disabled of bool
@@ -398,12 +402,12 @@ type DropdownProps =
     | Label of string
     | Name of string
     | OnBlur of Function
-    | OnChange of Function
+    | OnChange of ('TVal -> unit)
     | OnFocus of Function
-    | Source of ResizeArray<obj>
-    | Template of Function
+    | Source of DropdownWrapper<'TVal,'T> array
+    | Template of (DropdownWrapper<'TVal,'T> -> ReactElement<obj>)
     | Theme of DropdownTheme
-    | Value of U2<string, float>
+    | Value of 'TVal
     interface IReactToolboxProp
 let Dropdown = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/dropdown"
 let inline dropdown b c = Fable.Helpers.React.from Dropdown b c
@@ -483,7 +487,7 @@ type NavDrawerTheme =
 type NavDrawerProps =
     | Active of bool
     | Children of React.ReactNode
-    | OnOverlayClick of Function
+    | OnOverlayClick of (React.MouseEvent -> unit)
     | PermanentAt of (* TODO StringEnum sm | md | lg | xl | xxl | xxxl *) string
     | Pinned of bool
     | ScrollY of bool
