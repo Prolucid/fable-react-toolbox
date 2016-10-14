@@ -648,9 +648,9 @@ type MenuTheme =
 type MenuProps =
     | Active of bool
     | Children of React.ReactNode
-    | OnHide of Function
-    | OnSelect of Function
-    | OnShow of Function
+    | OnHide of (unit -> unit)
+    | OnSelect of (obj -> unit)
+    | OnShow of (unit -> unit)
     | Outline of bool
     | Position of (* TODO StringEnum auto | static | topLeft | topRight | bottomLeft | bottomRight *) string
     | Ripple of bool
