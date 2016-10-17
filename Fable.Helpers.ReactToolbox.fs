@@ -279,7 +279,7 @@ type ChipTheme =
 type ChipProps =
     | Children of React.ReactNode
     | Deletable of bool
-    | OnDeleteClick of Function
+    | OnDeleteClick of (unit -> unit)
     | Theme of ChipTheme
     interface IReactToolboxProp
 let Chip = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/chip"
