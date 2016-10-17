@@ -321,6 +321,7 @@ type DatePickerProps =
     | OnChange of Function
     | OnEscKeyDown of Function
     | OnOverlayClick of Function
+    | Readonly of bool
     | Theme of DatePickerTheme
     | Value of U2<DateTime, string>
     interface IReactToolboxProp
