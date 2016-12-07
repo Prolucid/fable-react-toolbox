@@ -406,7 +406,7 @@ type DropdownProps<'TVal,'T> =
     | OnChange of ('TVal -> unit)
     | OnFocus of Function
     | Source of DropdownWrapper<'TVal,'T> array
-    | Template of (DropdownWrapper<'TVal,'T> -> ReactElement<obj>)
+    | Template of (DropdownWrapper<'TVal,'T> -> ReactElement)
     | Theme of DropdownTheme
     | Value of 'TVal
     interface IReactToolboxProp
@@ -464,7 +464,7 @@ type LayoutTheme =
     | Layout of string
 [<KeyValueList>]
 type LayoutProps =
-    | Children of ReactElement<obj> // U3<NavDrawer, Panel, Sidebar>
+    | Children of ReactElement // U3<NavDrawer, Panel, Sidebar>
     | Theme of LayoutTheme
     interface IReactToolboxProp
 let Layout = importMember<ComponentClass<IHTMLProp list>> "react-toolbox/lib/layout"
@@ -610,11 +610,11 @@ type ListItemProps =
     | Children of React.ReactNode
     | Disabled of bool
     | ItemContent of React.ReactNode
-    | LeftActions of ReactElement<obj> array
+    | LeftActions of ReactElement array
     | LeftIcon of U2<React.ReactNode, string>
     | Legend of string
-    | RightActions of ReactElement<obj> array
-    | RightIcon of U2<ReactElement<obj>, string>
+    | RightActions of ReactElement array
+    | RightIcon of U2<ReactElement, string>
     | Ripple of bool
     | Selectable of bool
     | Theme of ListItemTheme
