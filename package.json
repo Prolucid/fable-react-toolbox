@@ -1,6 +1,6 @@
 {
   "name": "fable-react-toolbox",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "description": "UI components for fable-react",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
