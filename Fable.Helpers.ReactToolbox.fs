@@ -894,8 +894,8 @@ type TableTheme =
 type TableProps =
     | Heading of bool
     | Model of obj
-    | OnChange of Function
-    | OnSelect of Function
+    | OnChange of (int -> int -> obj -> unit)
+    | OnSelect of (obj -> unit)
     | Selectable of bool
     | MultiSelectable of bool
     | Selected of ResizeArray<obj>
