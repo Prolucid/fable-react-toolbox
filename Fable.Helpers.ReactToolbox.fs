@@ -850,7 +850,8 @@ type SnackbarProps =
     | Active of bool
     | Icon of U2<React.ReactNode, string>
     | Label of string
-    | OnTimeout of Function
+    | OnTimeout of (obj->unit)
+    | OnClick of (obj->unit)
     | Theme of SnackbarTheme
     | Timeout of float
     | Type of (* TODO StringEnum accept | cancel | warning *) string
