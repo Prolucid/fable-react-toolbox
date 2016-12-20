@@ -85,6 +85,7 @@ type AutocompleteTheme =
     | Values of string
 [<KeyValueList>]
 type AutocompleteProps =
+    | AllowCreate of bool
     | Direction of (* TODO StringEnum auto | up | down *) string
     | Disabled of bool
     | Error of string
