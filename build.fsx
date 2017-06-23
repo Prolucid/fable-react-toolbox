@@ -14,6 +14,7 @@ let yarn = ProcessHelper.tryFindFileOnPath (if isWindows then "yarn.cmd" else "y
 
 // Filesets
 let projects  = !! "src/**.fsproj"
+let buildDir = "src/bin"
 
 
 let dotnetcliVersion = "1.0.1"
@@ -25,6 +26,11 @@ let runDotnet workingDir =
 
 Target "InstallDotNetCore" (fun _ ->
    dotnetExePath <- DotNetCli.InstallDotNetSDK dotnetcliVersion
+)
+
+Target "Clean" (fun _ ->
+    CleanDir buildDir
+    runDotnet "src" "restore"
 )
 
 

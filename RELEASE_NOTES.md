@@ -1,3 +1,7 @@
+### 1.1.0-beta-3
+
+* Module is now public
+
 ### 1.1.0-beta-2
 
 * Fixed component bindings

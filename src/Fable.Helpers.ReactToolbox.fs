@@ -1,4 +1,4 @@
-module internal Fable.Helpers.ReactToolbox
+module Fable.Helpers.ReactToolbox
 
 open Fable.Core
 open Fable.Import
