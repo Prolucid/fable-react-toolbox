@@ -13,6 +13,6 @@ UI components for fable-react
 3. `dotnet pack`
 
 ### Usage
-See the getting started project.
-This is ported directly from [react-toolbox](http://react-toolbox.com/)
+See the [sample project](https://github.com/Prolucid/fable-react-toolbox-starter).
+These components are ported directly from [react-toolbox](http://react-toolbox.com/)
 Please refer to the docs there.
