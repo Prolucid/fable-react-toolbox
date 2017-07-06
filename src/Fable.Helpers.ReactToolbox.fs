@@ -339,13 +339,13 @@ type DialogTheme =
     | Navigation of string
     | Title of string
 
-type DialogActionProps =
-    | Label of string
-    | OnClick of (React.MouseEvent -> unit)
-    interface IReactToolboxProp
+[<Pojo>]
+type DialogActionProp =
+    { label: string 
+      onClick: unit -> unit }
 
 type DialogProps =
-    | Actions of IHTMLProp list array
+    | Actions of DialogActionProp array
     | Active of bool
     | Children of React.ReactNode
     | OnEscKeyDown of Function

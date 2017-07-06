@@ -1,3 +1,7 @@
+### 1.1.0-beta-4
+
+* Adding record type for DialogActionProp
+
 ### 1.1.0-beta-3
 
 * Module is now public
