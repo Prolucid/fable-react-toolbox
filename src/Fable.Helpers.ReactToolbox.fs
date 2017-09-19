@@ -345,7 +345,7 @@ type DialogActionProp =
       onClick: unit -> unit }
 
 type DialogProps =
-    | Actions of DialogActionProp array
+    | Actions of obj array
     | Active of bool
     | Children of React.ReactNode
     | OnEscKeyDown of Function
