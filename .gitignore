@@ -16,6 +16,7 @@ samples/**/public
 .fake/
 .paket/paket.exe
 packages/
+paket-files
 build/
 obj
 bin
