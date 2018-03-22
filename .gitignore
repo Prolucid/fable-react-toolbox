@@ -22,6 +22,6 @@ obj
 bin
 out
 
-Meta.props
+Directory.Build.props
 # git
 *.orig
