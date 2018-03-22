@@ -1,5 +1,27 @@
-build
-node_modules
-npm-debug.log
-.idea
+# OSX
+#
 .DS_Store
+
+# node.js
+#
+**/node_modules/
+**/npm/
+npm-debug.log
+samples/**/public
+
+.vscode/
+.vs
+
+# F#
+.fake/
+.paket/paket.exe
+packages/
+paket-files
+build/
+obj
+bin
+out
+
+Meta.props
+# git
+*.orig

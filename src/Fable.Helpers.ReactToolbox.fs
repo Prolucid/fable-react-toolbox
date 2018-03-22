@@ -1,4 +1,4 @@
-module internal Fable.Helpers.ReactToolbox
+module Fable.Helpers.ReactToolbox
 
 open Fable.Core
 open Fable.Import
@@ -11,7 +11,7 @@ open System
 [<AutoOpen>]
 module Props =
 
-    type [<Erase>] Props =
+    type Props =
         | ClassName of string
         | Key of string
         | OnClick of Function
@@ -48,7 +48,8 @@ open Props
 
 let styles = JsInterop.importAll<obj> "react-toolbox/lib/commons.scss"
 
-[<KeyValueList>]
+let inline rtEl<[<Pojo>]'P when 'P :> IHTMLProp> (a:ComponentClass<'P>) (b:IHTMLProp list) c = Fable.Helpers.React.from a (keyValueList CaseRules.LowerFirst b |> unbox) c
+
 type AppBarTheme =
     | AppBar of string
     | Fixed of string
@@ -56,7 +57,6 @@ type AppBarTheme =
     | Title of string
     | LeftIcon of string
     | RightIcon of string
-[<KeyValueList>]
 type AppBarProps =
     | Children of React.ReactNode
     | Fixed of bool
@@ -68,10 +68,11 @@ type AppBarProps =
     | OnRightIconClick of Function
     | Theme of AppBarTheme
     interface IReactToolboxProp
-let AppBar = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/app_bar"
-let inline appBar b c = Fable.Helpers.React.from AppBar b c
+let AppBar = importDefault<ComponentClass<IHTMLProp>> "react-toolbox/lib/app_bar"
 
-[<KeyValueList>]
+let inline appBar b c = rtEl AppBar b c
+
+
 type AutocompleteTheme =
     | Active of string
     | Autocomplete of string
@@ -83,7 +84,7 @@ type AutocompleteTheme =
     | Up of string
     | Value of string
     | Values of string
-[<KeyValueList>]
+
 type AutocompleteProps =
     | AllowCreate of bool
     | Direction of (* TODO StringEnum auto | up | down *) string
@@ -99,15 +100,15 @@ type AutocompleteProps =
     | Theme of AutocompleteTheme
     | Value of obj
     interface IReactToolboxProp
-let Autocomplete = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/autocomplete"
-let inline autocomplete b c = Fable.Helpers.React.from Autocomplete b c
+let Autocomplete = importDefault<ComponentClass<IHTMLProp>> "react-toolbox/lib/autocomplete"
+let inline autocomplete b c = rtEl Autocomplete b c
 
-[<KeyValueList>]
+
 type AvatarTheme =
     | Avatar of string
     | Image of string
     | Letter of string
-[<KeyValueList>]
+
 type AvatarProps =
     | Children of React.ReactNode
     | Cover of bool
@@ -116,10 +117,10 @@ type AvatarProps =
     | Theme of AvatarTheme
     | Title of string
     interface IReactToolboxProp
-let Avatar = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/avatar"
-let inline avatar b c = Fable.Helpers.React.from Avatar b c
+let Avatar = importDefault<ComponentClass<IHTMLProp>> "react-toolbox/lib/avatar"
+let inline avatar b c = rtEl Avatar b c
 
-[<KeyValueList>]
+
 type ButtonTheme =
     | Accent of string
     | Button of string
@@ -133,7 +134,7 @@ type ButtonTheme =
     | Raised of string
     | RippleWrapper of string
     | Toggle of string
-[<KeyValueList>]
+
 type ButtonProps =
     | Accent of bool
     | Children of React.ReactNode
@@ -151,9 +152,9 @@ type ButtonProps =
     | Ripple of bool
     | Theme of ButtonTheme
     interface IReactToolboxProp
-let Button = importMember<ComponentClass<IHTMLProp list>> "react-toolbox/lib/button"
-let inline button b c = Fable.Helpers.React.from Button b c
-[<KeyValueList>]
+let Button = importMember<ComponentClass<IHTMLProp>> "react-toolbox/lib/button"
+let inline button b c = rtEl Button b c
+
 type IconButtonTheme =
     | Accent of string
     | Button of string
@@ -163,7 +164,7 @@ type IconButtonTheme =
     | Primary of string
     | RippleWrapper of string
     | Toggle of string
-[<KeyValueList>]
+
 type IconButtonProps =
     | Accent of bool
     | Children of React.ReactNode
@@ -176,39 +177,39 @@ type IconButtonProps =
     | Ripple of bool
     | Theme of IconButtonTheme
     interface IReactToolboxProp
-let IconButton = importMember<ComponentClass<IHTMLProp list>> "react-toolbox/lib/button"
-let inline iconButton b c = Fable.Helpers.React.from IconButton b c
+let IconButton = importMember<ComponentClass<IHTMLProp>> "react-toolbox/lib/button"
+let inline iconButton b c = rtEl IconButton b c
 
-[<KeyValueList>]
+
 type CardTheme =
     | Card of string
     | Raised of string
-[<KeyValueList>]
+
 type CardProps =
     | Children of React.ReactNode
     | Raised of bool
     | Theme of CardTheme
     interface IReactToolboxProp
-let Card = importMember<ComponentClass<IHTMLProp list>> "react-toolbox/lib/card"
-let inline card b c = Fable.Helpers.React.from Card b c
-[<KeyValueList>]
+let Card = importMember<ComponentClass<IHTMLProp>> "react-toolbox/lib/card"
+let inline card b c = rtEl Card b c
+
 type CardActionsTheme =
     | CardActions of string
-[<KeyValueList>]
+
 type CardActionsProps =
     | Children of React.ReactNode
     | Theme of CardActionsTheme
     interface IReactToolboxProp
-let CardActions = importMember<ComponentClass<IHTMLProp list>> "react-toolbox/lib/card"
-let inline cardActions b c = Fable.Helpers.React.from CardActions b c
-[<KeyValueList>]
+let CardActions = importMember<ComponentClass<IHTMLProp>> "react-toolbox/lib/card"
+let inline cardActions b c = rtEl CardActions b c
+
 type CardMediaTheme =
     | CardMedia of string
     | Content of string
     | ContentOverlay of string
     | Square of string
     | Wide of string
-[<KeyValueList>]
+
 type CardMediaProps =
     | AspectRatio of (* TODO StringEnum wide | square *) string
     | Children of React.ReactNode
@@ -217,25 +218,25 @@ type CardMediaProps =
     | Image of U2<React.ReactNode, string>
     | Theme of CardMediaTheme
     interface IReactToolboxProp
-let CardMedia = importMember<ComponentClass<IHTMLProp list>> "react-toolbox/lib/card"
-let inline cardMedia b c = Fable.Helpers.React.from CardMedia b c
-[<KeyValueList>]
+let CardMedia = importMember<ComponentClass<IHTMLProp>> "react-toolbox/lib/card"
+let inline cardMedia b c = rtEl CardMedia b c
+
 type CardTextTheme =
     | CardText of string
-[<KeyValueList>]
+
 type CardTextProps =
     | Children of React.ReactNode
     | Theme of CardTextTheme
     interface IReactToolboxProp
-let CardText = importMember<ComponentClass<IHTMLProp list>> "react-toolbox/lib/card"
-let inline cardText b c = Fable.Helpers.React.from CardText b c
-[<KeyValueList>]
+let CardText = importMember<ComponentClass<IHTMLProp>> "react-toolbox/lib/card"
+let inline cardText b c = rtEl CardText b c
+
 type CardTitleTheme =
     | Large of string
     | Title of string
     | Small of string
     | Subtitle of string
-[<KeyValueList>]
+
 type CardTitleProps =
     | Avatar of U2<React.ReactNode, string>
     | Children of React.ReactNode
@@ -243,10 +244,10 @@ type CardTitleProps =
     | Theme of CardTitleTheme
     | Title of U2<React.ReactNode, string>
     interface IReactToolboxProp
-let CardTitle = importMember<ComponentClass<IHTMLProp list>> "react-toolbox/lib/card"
-let inline cardTitle b c = Fable.Helpers.React.from CardTitle b c
+let CardTitle = importMember<ComponentClass<IHTMLProp>> "react-toolbox/lib/card"
+let inline cardTitle b c = rtEl CardTitle b c
 
-[<KeyValueList>]
+
 type CheckboxTheme =
     | Check of string
     | Checked of string
@@ -255,7 +256,7 @@ type CheckboxTheme =
     | Input of string
     | Ripple of string
     | Text of string
-[<KeyValueList>]
+
 type CheckboxProps =
     | Checked of bool
     | Disabled of bool
@@ -265,10 +266,10 @@ type CheckboxProps =
     | OnChange of (bool -> unit)
     | Theme of CheckboxTheme
     interface IReactToolboxProp
-let Checkbox = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/checkbox"
-let inline checkbox b c = Fable.Helpers.React.from Checkbox b c
+let Checkbox  = importDefault<ComponentClass<IHTMLProp>> "react-toolbox/lib/checkbox"
+let inline checkbox b c = rtEl Checkbox b c
 
-[<KeyValueList>]
+
 type ChipTheme =
     | Avatar of string
     | Chip of string
@@ -276,17 +277,17 @@ type ChipTheme =
     | Delete of string
     | DeleteIcon of string
     | DeleteX of string
-[<KeyValueList>]
+
 type ChipProps =
     | Children of React.ReactNode
     | Deletable of bool
     | OnDeleteClick of (unit -> unit)
     | Theme of ChipTheme
     interface IReactToolboxProp
-let Chip = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/chip"
-let inline chip b c = Fable.Helpers.React.from Chip b c
+let Chip  = importDefault<ComponentClass<IHTMLProp>> "react-toolbox/lib/chip"
+let inline chip b c = rtEl Chip b c
 
-[<KeyValueList>]
+
 type DatePickerTheme =
     | Active of string
     | Button of string
@@ -308,7 +309,7 @@ type DatePickerTheme =
     | Year of string
     | Years of string
     | YearsDisplay of string
-[<KeyValueList>]
+
 type DatePickerProps =
     | AutoOk of bool
     | Error of string
@@ -326,10 +327,10 @@ type DatePickerProps =
     | Theme of DatePickerTheme
     | Value of U2<DateTime, string>
     interface IReactToolboxProp
-let DatePicker = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/date_picker"
-let inline datePicker b c = Fable.Helpers.React.from DatePicker b c
+let DatePicker  = importDefault<ComponentClass<IHTMLProp>> "react-toolbox/lib/date_picker"
+let inline datePicker b c = rtEl DatePicker b c
 
-[<KeyValueList>]
+
 type DialogTheme =
     | Active of string
     | Body of string
@@ -337,14 +338,14 @@ type DialogTheme =
     | Dialog of string
     | Navigation of string
     | Title of string
-[<KeyValueList>]
-type DialogActionProps =
-    | Label of string
-    | OnClick of (React.MouseEvent -> unit)
-    interface IReactToolboxProp
-[<KeyValueList>]
+
+[<Pojo>]
+type DialogActionProp =
+    { label: string 
+      onClick: unit -> unit }
+
 type DialogProps =
-    | Actions of IHTMLProp list array
+    | Actions of obj array
     | Active of bool
     | Children of React.ReactNode
     | OnEscKeyDown of Function
@@ -356,17 +357,17 @@ type DialogProps =
     | Title of string
     | Type of string
     interface IReactToolboxProp
-let Dialog = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/dialog"
-let inline dialog b c = Fable.Helpers.React.from Dialog b c
+let Dialog  = importDefault<ComponentClass<IHTMLProp>> "react-toolbox/lib/dialog"
+let inline dialog b c = rtEl Dialog b c
 
-[<KeyValueList>]
+
 type DrawerTheme =
     | Active of string
     | Content of string
     | Drawer of string
     | Left of string
     | Right of string
-[<KeyValueList>]
+
 type DrawerProps =
     | Active of bool
     | Children of React.ReactNode
@@ -374,14 +375,14 @@ type DrawerProps =
     | Theme of DrawerTheme
     | Type of (* TODO StringEnum left | right *) string
     interface IReactToolboxProp
-let Drawer = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/drawer"
-let inline drawer b c = Fable.Helpers.React.from Drawer b c
+let Drawer  = importDefault<ComponentClass<IHTMLProp>> "react-toolbox/lib/drawer"
+let inline drawer b c = rtEl Drawer b c
 
 
 type DropdownWrapper<'TVal,'T> =
     { item: 'T
       value: 'TVal }
-[<KeyValueList>]
+
 type DropdownTheme =
     | Active of string
     | Disabled of string
@@ -395,7 +396,7 @@ type DropdownTheme =
     | Up of string
     | Value of string
     | Values of string
-[<KeyValueList>]
+
 type DropdownProps<'TVal,'T> =
     | AllowBlank of bool
     | Auto of bool
@@ -411,18 +412,18 @@ type DropdownProps<'TVal,'T> =
     | Theme of DropdownTheme
     | Value of 'TVal
     interface IReactToolboxProp
-let Dropdown = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/dropdown"
-let inline dropdown b c = Fable.Helpers.React.from Dropdown b c
+let Dropdown  = importDefault<ComponentClass<IHTMLProp>> "react-toolbox/lib/dropdown"
+let inline dropdown b c = rtEl Dropdown b c
 
-[<KeyValueList>]
+
 type FontIconProps =
     | Children of React.ReactNode
     | Value of U2<React.ReactNode, string>
     interface IReactToolboxProp
-let FontIcon = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/font_icon"
-let inline fontIcon b c = Fable.Helpers.React.from FontIcon b c
+let FontIcon  = importDefault<ComponentClass<IHTMLProp>> "react-toolbox/lib/font_icon"
+let inline fontIcon b c = rtEl FontIcon b c
 
-[<KeyValueList>]
+
 type InputTheme =
     | Bar of string
     | Counter of string
@@ -436,7 +437,7 @@ type InputTheme =
     | InputElement of string
     | Required of string
     | WithIcon of string
-[<KeyValueList>]
+
 type InputProps =
     | Children of React.ReactNode
     | Disabled of bool
@@ -457,20 +458,20 @@ type InputProps =
     | Type of string
     | Value of obj
     interface IReactToolboxProp
-let Input = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/input"
-let inline input b c = Fable.Helpers.React.from Input b c
+let Input  = importDefault<ComponentClass<IHTMLProp>> "react-toolbox/lib/input"
+let inline input b c = rtEl Input b c
 
-[<KeyValueList>]
+
 type LayoutTheme =
     | Layout of string
-[<KeyValueList>]
+
 type LayoutProps =
     | Children of ReactElement // U3<NavDrawer, Panel, Sidebar>
     | Theme of LayoutTheme
     interface IReactToolboxProp
-let Layout = importMember<ComponentClass<IHTMLProp list>> "react-toolbox/lib/layout"
-let inline layout b c = Fable.Helpers.React.from Layout b c
-[<KeyValueList>]
+let Layout = importMember<ComponentClass<IHTMLProp>> "react-toolbox/lib/layout"
+let inline layout b c = rtEl Layout b c
+
 type NavDrawerTheme =
     | Active of string
     | DrawerContent of string
@@ -485,7 +486,7 @@ type NavDrawerTheme =
     | XlPermanent of string
     | XxlPermangent of string
     | XxxlPermangent of string
-[<KeyValueList>]
+
 type NavDrawerProps =
     | Active of bool
     | Children of React.ReactNode
@@ -496,27 +497,27 @@ type NavDrawerProps =
     | Theme of NavDrawerTheme
     | Width of (* TODO StringEnum normal | wide *) string
     interface IReactToolboxProp
-let NavDrawer = importMember<ComponentClass<IHTMLProp list>> "react-toolbox/lib/layout"
-let inline navDrawer b c = Fable.Helpers.React.from NavDrawer b c
-[<KeyValueList>]
+let NavDrawer = importMember<ComponentClass<IHTMLProp>> "react-toolbox/lib/layout"
+let inline navDrawer b c = rtEl NavDrawer b c
+
 type PanelTheme =
     | Panel of string
     | ScrollY of string
-[<KeyValueList>]
+
 type PanelProps =
     | Children of React.ReactNode
     | ScrollY of bool
     | Theme of PanelTheme
     interface IReactToolboxProp
-let Panel = importMember<ComponentClass<IHTMLProp list>> "react-toolbox/lib/layout"
-let inline panel b c = Fable.Helpers.React.from Panel b c
-[<KeyValueList>]
+let Panel = importMember<ComponentClass<IHTMLProp>> "react-toolbox/lib/layout"
+let inline panel b c = rtEl Panel b c
+
 type SidebarTheme =
     | Pinned of string
     | ScrollY of string
     | Sidebar of string
     | SidebarContent of string
-[<KeyValueList>]
+
 type SidebarProps =
     | Children of React.ReactNode
     | Pinned of bool
@@ -524,15 +525,15 @@ type SidebarProps =
     | Theme of SidebarTheme
     | Width of float
     interface IReactToolboxProp
-let Sidebar = importMember<ComponentClass<IHTMLProp list>> "react-toolbox/lib/layout"
-let inline sidebar b c = Fable.Helpers.React.from Sidebar b c
+let Sidebar = importMember<ComponentClass<IHTMLProp>> "react-toolbox/lib/layout"
+let inline sidebar b c = rtEl Sidebar b c
 
-[<KeyValueList>]
+
 type LinkTheme =
     | Active of string
     | Icon of string
     | Link of string
-[<KeyValueList>]
+
 type LinkProps =
     | Active of bool
     | Children of React.ReactNode
@@ -542,22 +543,22 @@ type LinkProps =
     | Label of string
     | Theme of LinkTheme
     interface IReactToolboxProp
-let Link = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/link"
-let inline link b c = Fable.Helpers.React.from Link b c
+let Link  = importDefault<ComponentClass<IHTMLProp>> "react-toolbox/lib/link"
+let inline link b c = rtEl Link b c
 
-[<KeyValueList>]
+
 type ListTheme =
     | List of string
-[<KeyValueList>]
+
 type ListProps =
     | Children of React.ReactNode
     | Ripple of bool
     | Selectable of bool
     | Theme of ListTheme
     interface IReactToolboxProp
-let List = importMember<ComponentClass<IHTMLProp list>> "react-toolbox/lib/list"
-let inline list b c = Fable.Helpers.React.from List b c
-[<KeyValueList>]
+let List = importMember<ComponentClass<IHTMLProp>> "react-toolbox/lib/list"
+let inline list b c = rtEl List b c
+
 type ListCheckboxTheme =
     | Checkbox of string
     | CheckboxItem of string
@@ -567,7 +568,7 @@ type ListCheckboxTheme =
     | ItemText of string
     | Large of string
     | Primary of string
-[<KeyValueList>]
+
 type ListCheckboxProps =
     | Caption of string
     | Checked of bool
@@ -579,9 +580,9 @@ type ListCheckboxProps =
     | OnFocus of Function
     | Theme of ListCheckboxTheme
     interface IReactToolboxProp
-let ListCheckbox = importMember<ComponentClass<IHTMLProp list>> "react-toolbox/lib/list"
-let inline listCheckbox b c = Fable.Helpers.React.from ListCheckbox b c
-[<KeyValueList>]
+let ListCheckbox = importMember<ComponentClass<IHTMLProp>> "react-toolbox/lib/list"
+let inline listCheckbox b c = rtEl ListCheckbox b c
+
 type ListDividerTheme =
     | Divider of string
     | Inset of string
@@ -589,9 +590,9 @@ and ListDividerProps =
     | Inset of bool
     | Theme of ListDividerTheme
     interface IReactToolboxProp
-let ListDivider = importMember<ComponentClass<IHTMLProp list>> "react-toolbox/lib/list"
-let inline listDivider b c = Fable.Helpers.React.from ListDivider b c
-[<KeyValueList>]
+let ListDivider = importMember<ComponentClass<IHTMLProp>> "react-toolbox/lib/list"
+let inline listDivider b c = rtEl ListDivider b c
+
 type ListItemTheme =
     | Disabled of string
     | Item of string
@@ -604,7 +605,7 @@ type ListItemTheme =
     | Primary of string
     | Right of string
     | Selectable of string
-[<KeyValueList>]
+
 type ListItemProps =
     | Avatar of U2<React.ReactNode, string>
     | Caption of string
@@ -621,20 +622,20 @@ type ListItemProps =
     | Theme of ListItemTheme
     | To of string
     interface IReactToolboxProp
-let ListItem = importMember<ComponentClass<IHTMLProp list>> "react-toolbox/lib/list"
-let inline listItem b c = Fable.Helpers.React.from ListItem b c
-[<KeyValueList>]
+let ListItem = importMember<ComponentClass<IHTMLProp>> "react-toolbox/lib/list"
+let inline listItem b c = rtEl ListItem b c
+
 type ListSubHeaderTheme =
     | Subheader of string
-[<KeyValueList>]
+
 type ListSubHeaderProps =
     | Caption of string
     | Theme of ListSubHeaderTheme
     interface IReactToolboxProp
-let ListSubHeader = importMember<ComponentClass<IHTMLProp list>> "react-toolbox/lib/list"
-let inline listSubHeader b c = Fable.Helpers.React.from ListSubHeader b c
+let ListSubHeader = importMember<ComponentClass<IHTMLProp>> "react-toolbox/lib/list"
+let inline listSubHeader b c = rtEl ListSubHeader b c
 
-[<KeyValueList>]
+
 type MenuTheme =
     | Active of string
     | BottomLeft of string
@@ -646,7 +647,7 @@ type MenuTheme =
     | Static of string
     | TopLeft of string
     | TopRight of string
-[<KeyValueList>]
+
 type MenuProps =
     | Active of bool
     | Children of React.ReactNode
@@ -660,13 +661,13 @@ type MenuProps =
     | Selected of obj
     | Theme of MenuTheme
     interface IReactToolboxProp
-let Menu = importMember<ComponentClass<IHTMLProp list>> "react-toolbox/lib/menu"
-let inline menu b c = Fable.Helpers.React.from Menu b c
-[<KeyValueList>]
+let Menu = importMember<ComponentClass<IHTMLProp>> "react-toolbox/lib/menu"
+let inline menu b c = rtEl Menu b c
+
 type IconMenuTheme =
     | Icon of string
     | IconMenu of string
-[<KeyValueList>]
+
 type IconMenuProps =
     | Children of React.ReactNode
     | Icon of U2<React.ReactNode, string>
@@ -680,18 +681,18 @@ type IconMenuProps =
     | Selected of obj
     | Theme of IconMenuTheme
     interface IReactToolboxProp
-let IconMenu = importMember<ComponentClass<IHTMLProp list>> "react-toolbox/lib/menu"
-let inline iconMenu b c = Fable.Helpers.React.from IconMenu b c
-[<KeyValueList>]
+let IconMenu = importMember<ComponentClass<IHTMLProp>> "react-toolbox/lib/menu"
+let inline iconMenu b c = rtEl IconMenu b c
+
 type MenuDividerTheme =
     | MenuDivider of string
-[<KeyValueList>]
+
 type MenuDividerProps =
     | Theme of MenuDividerTheme
     interface IReactToolboxProp
-let MenuDivider = importMember<ComponentClass<IHTMLProp list>> "react-toolbox/lib/menu"
-let inline menuDivider b c = Fable.Helpers.React.from MenuDivider b c
-[<KeyValueList>]
+let MenuDivider = importMember<ComponentClass<IHTMLProp>> "react-toolbox/lib/menu"
+let inline menuDivider b c = rtEl MenuDivider b c
+
 type MenuItemTheme =
     | Caption of string
     | Disabled of string
@@ -699,7 +700,7 @@ type MenuItemTheme =
     | MenuItem of string
     | Selected of string
     | Shortcut of string
-[<KeyValueList>]
+
 type MenuItemProps =
     | Caption of string
     | Children of React.ReactNode
@@ -710,16 +711,16 @@ type MenuItemProps =
     | Theme of MenuItemTheme
     | Value of obj
     interface IReactToolboxProp
-let MenuItem = importMember<ComponentClass<IHTMLProp list>> "react-toolbox/lib/menu"
-let inline menuItem b c = Fable.Helpers.React.from MenuItem b c
+let MenuItem = importMember<ComponentClass<IHTMLProp>> "react-toolbox/lib/menu"
+let inline menuItem b c = rtEl MenuItem b c
 
-[<KeyValueList>]
+
 type NavigationTheme =
     | Button of string
     | Horizontal of string
     | Link of string
     | Vertical of string
-[<KeyValueList>]
+
 type NavigationProps =
     | Actions of ResizeArray<obj>
     | Children of React.ReactNode
@@ -727,10 +728,10 @@ type NavigationProps =
     | Theme of NavigationTheme
     | Type of (* TODO StringEnum vertical | horizontal *) string
     interface IReactToolboxProp
-let Navigation = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/navigation"
-let inline navigation b c = Fable.Helpers.React.from Navigation b c
+let Navigation  = importDefault<ComponentClass<IHTMLProp>> "react-toolbox/lib/navigation"
+let inline navigation b c = rtEl Navigation b c
 
-[<KeyValueList>]
+
 type ProgressBarTheme =
     | Buffer of string
     | Circle of string
@@ -740,7 +741,7 @@ type ProgressBarTheme =
     | Multicolor of string
     | Path of string
     | Value of string
-[<KeyValueList>]
+
 type ProgressBarProps =
     | Buffer of float
     | Max of float
@@ -751,10 +752,10 @@ type ProgressBarProps =
     | Type of (* TODO StringEnum linear | circular *) string
     | Value of float
     interface IReactToolboxProp
-let ProgressBar = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/progress_bar"
-let inline progressBar b c = Fable.Helpers.React.from ProgressBar b c
+let ProgressBar  = importDefault<ComponentClass<IHTMLProp>> "react-toolbox/lib/progress_bar"
+let inline progressBar b c = rtEl ProgressBar b c
 
-[<KeyValueList>]
+
 type RadioGroupProps =
     | Children of React.ReactNode
     | Disabled of bool
@@ -762,9 +763,9 @@ type RadioGroupProps =
     | OnChange of Function
     | Value of obj
     interface IReactToolboxProp
-let RadioGroup = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/radio"
-let inline radioGroup b c = Fable.Helpers.React.from RadioGroup b c
-[<KeyValueList>]
+let RadioGroup  = importDefault<ComponentClass<IHTMLProp>> "react-toolbox/lib/radio"
+let inline radioGroup b c = rtEl RadioGroup b c
+
 type RadioButtonTheme =
     | Radio of string
     | RadioChecked of string
@@ -773,7 +774,7 @@ type RadioButtonTheme =
     | Field of string
     | Input of string
     | Text of string
-[<KeyValueList>]
+
 type RadioButtonProps =
     | Checked of bool
     | Disabled of bool
@@ -785,16 +786,16 @@ type RadioButtonProps =
     | Theme of RadioButtonTheme
     | Value of obj
     interface IReactToolboxProp
-let RadioButton = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/radio"
-let inline radioButton b c = Fable.Helpers.React.from RadioButton b c
+let RadioButton  = importDefault<ComponentClass<IHTMLProp>> "react-toolbox/lib/radio"
+let inline radioButton b c = rtEl RadioButton b c
 
-[<KeyValueList>]
+
 type RippleTheme =
     | Ripple of string
     | RippleActive of string
     | RippleRestarting of string
     | RippleWrapper of string
-[<KeyValueList>]
+
 type RippleProps =
     | Children of React.ReactNode
     | Disabled of bool
@@ -802,10 +803,10 @@ type RippleProps =
     | Spread of float
     | Theme of RippleTheme
     interface IReactToolboxProp
-let Ripple = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/ripple"
-let inline ripple b c = Fable.Helpers.React.from Ripple b c
+let Ripple  = importDefault<ComponentClass<IHTMLProp>> "react-toolbox/lib/ripple"
+let inline ripple b c = rtEl Ripple b c
 
-[<KeyValueList>]
+
 type SliderTheme =
     | Container of string
     | Editable of string
@@ -820,7 +821,7 @@ type SliderTheme =
     | Slider of string
     | Snap of string
     | Snaps of string
-[<KeyValueList>]
+
 type SliderProps =
     | Editable of bool
     | Max of float
@@ -832,10 +833,10 @@ type SliderProps =
     | Theme of SliderTheme
     | Value of float
     interface IReactToolboxProp
-let Slider = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/slider"
-let inline slider b c = Fable.Helpers.React.from Slider b c
+let Slider  = importDefault<ComponentClass<IHTMLProp>> "react-toolbox/lib/slider"
+let inline slider b c = rtEl Slider b c
 
-[<KeyValueList>]
+
 type SnackbarTheme =
     | Accept of string
     | Active of string
@@ -845,7 +846,7 @@ type SnackbarTheme =
     | Label of string
     | Snackbar of string
     | Warning of string
-[<KeyValueList>]
+
 type SnackbarProps =
     | Action of string
     | Active of bool
@@ -857,10 +858,10 @@ type SnackbarProps =
     | Timeout of float
     | Type of (* TODO StringEnum accept | cancel | warning *) string
     interface IReactToolboxProp
-let Snackbar = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/snackbar"
-let inline snackbar b c = Fable.Helpers.React.from Snackbar b c
+let Snackbar  = importDefault<ComponentClass<IHTMLProp>> "react-toolbox/lib/snackbar"
+let inline snackbar b c = rtEl Snackbar b c
 
-[<KeyValueList>]
+
 type SwitchTheme =
     | Disabled of string
     | Field of string
@@ -870,7 +871,7 @@ type SwitchTheme =
     | Ripple of string
     | Text of string
     | Thumb of string
-[<KeyValueList>]
+
 type SwitchProps =
     | Checked of bool
     | Disabled of bool
@@ -881,17 +882,17 @@ type SwitchProps =
     | OnFocus of Function
     | Theme of SwitchTheme
     interface IReactToolboxProp
-let Switch = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/switch"
-let inline switch b c = Fable.Helpers.React.from Switch b c
+let Switch  = importDefault<ComponentClass<IHTMLProp>> "react-toolbox/lib/switch"
+let inline switch b c = rtEl Switch b c
 
-[<KeyValueList>]
+
 type TableTheme =
     | Editable of string
     | Row of string
     | Selectable of string
     | Selected of string
     | Table of string
-[<KeyValueList>]
+
 type TableProps =
     | Heading of bool
     | Model of obj
@@ -903,17 +904,17 @@ type TableProps =
     | Source of ResizeArray<obj>
     | Theme of TableTheme
     interface IReactToolboxProp
-let Table = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/table"
-let inline table b c = Fable.Helpers.React.from Table b c
+let Table  = importDefault<ComponentClass<IHTMLProp>> "react-toolbox/lib/table"
+let inline table b c = rtEl Table b c
 
-[<KeyValueList>]
+
 type TabsTheme =
     | Active of string
     | Navigation of string
     | Pointer of string
     | Tabs of string
     | Tab of string
-[<KeyValueList>]
+
 type TabsProps =
     | Children of React.ReactNode
     | DisableAnimatedBottomBorder of bool
@@ -921,15 +922,15 @@ type TabsProps =
     | OnChange of (int -> unit)
     | Theme of TabsTheme
     interface IReactToolboxProp
-let Tabs = importMember<ComponentClass<IHTMLProp list>> "react-toolbox/lib/tabs"
-let inline tabs b c = Fable.Helpers.React.from Tabs b c
-[<KeyValueList>]
+let Tabs = importMember<ComponentClass<IHTMLProp>> "react-toolbox/lib/tabs"
+let inline tabs b c = rtEl Tabs b c
+
 type TabTheme =
     | Active of string
     | Disabled of string
     | Hidden of string
     | Label of string
-[<KeyValueList>]
+
 type TabProps =
     | Active of bool
     | ActiveClassName of string
@@ -939,10 +940,10 @@ type TabProps =
     | OnActive of Function
     | Theme of TabTheme
     interface IReactToolboxProp
-let Tab = importMember<ComponentClass<IHTMLProp list>> "react-toolbox/lib/tabs"
-let inline tab b c = Fable.Helpers.React.from Tab b c
+let Tab = importMember<ComponentClass<IHTMLProp>> "react-toolbox/lib/tabs"
+let inline tab b c = rtEl Tab b c
 
-[<KeyValueList>]
+
 type TimePickerTheme =
     | Active of string
     | Am of string
@@ -967,7 +968,7 @@ type TimePickerTheme =
     | PmFormat of string
     | Separator of string
     | Small of string
-[<KeyValueList>]
+
 type TimePickerProps =
     | Error of string
     | Icon of U2<React.ReactNode, string>
@@ -978,20 +979,20 @@ type TimePickerProps =
     | Theme of TimePickerTheme
     | Value of DateTime
     interface IReactToolboxProp
-let TimePicker = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/time_picker"
-let inline timePicker b c = Fable.Helpers.React.from TimePicker b c
+let TimePicker  = importDefault<ComponentClass<IHTMLProp>> "react-toolbox/lib/time_picker"
+let inline timePicker b c = rtEl TimePicker b c
 
-[<KeyValueList>]
+
 type TooltipTheme =
     | Tooltip of string
     | TooltipActive of string
     | TooltipWrapper of string
-[<KeyValueList>]
+
 type TooltipProps =
     | Theme of TooltipTheme
     | Tooltip of string
     | TooltipDelay of float
     | TooltipHideOnClick of bool
     interface IReactToolboxProp
-let Tooltip = importDefault<ComponentClass<IHTMLProp list>> "react-toolbox/lib/tooltip"
-let inline tooltip b c = Fable.Helpers.React.from Tooltip b c
+let Tooltip  = importDefault<ComponentClass<IHTMLProp>> "react-toolbox/lib/tooltip"
+let inline tooltip b c = rtEl Tooltip b c
