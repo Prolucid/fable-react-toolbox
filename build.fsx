@@ -125,7 +125,8 @@ Target "Release" (fun _ ->
 Target "Publish" DoNothing
 
 // Build order
-"Meta"
+"Clean"
+  ==> "Meta"
   ==> "InstallDotNetCore"
 //   ==> "Install"
   ==> "Build"
@@ -135,6 +136,7 @@ Target "Publish" DoNothing
 
 "Publish"
   <== [ "Build"
+        "Package"
         "PublishNuget"
         "Release" ]
   

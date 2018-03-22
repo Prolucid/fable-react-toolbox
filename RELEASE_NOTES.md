@@ -1,3 +1,7 @@
+### 2.1.0
+
+* Release version targeting Fable.React 2.1.0
+
 ### 1.1.0-beta-4
 
 * Adding record type for DialogActionProp
