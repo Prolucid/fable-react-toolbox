@@ -77,12 +77,12 @@ Target "Meta" (fun _ ->
 // Build a NuGet package
 
 Target "Package" (fun _ ->
-    runDotnet "src" "pack"
+    runDotnet "src" "pack -c Release"
 )
 
 Target "PublishNuget" (fun _ ->
     let args = sprintf "nuget push Fable.ReactToolbox.%s.nupkg -s nuget.org -k %s" (string release.SemVer) (environVar "nugetkey")
-    runDotnet "src/bin/Debug" args
+    runDotnet "src/bin/Release" args
 )
 
 
