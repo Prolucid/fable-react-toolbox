@@ -1,5 +1,5 @@
 // include Fake libs
-#r "./packages/build/FAKE/tools/FakeLib.dll"
+#r "packages/build/FAKE/tools/FakeLib.dll"
 #r "System.IO.Compression.FileSystem"
 
 open System
@@ -40,7 +40,7 @@ Target "Clean" (fun _ ->
 //         NpmFilePath = yarn
 //     })
 //     projects
-//     |> Seq.iter (fun s -> 
+//     |> Seq.iter (fun s ->
 //         let dir = IO.Path.GetDirectoryName s
 //         runDotnet dir "restore"
 //        )
@@ -66,7 +66,7 @@ Target "Meta" (fun _ ->
       "<PackageLicenseUrl>https://raw.githubusercontent.com/prolucid/fable-react-toolbox/master/LICENSE</PackageLicenseUrl>"
       "<RepositoryUrl>https://github.com/Prolucid/fable-react-toolbox.git</RepositoryUrl>"
       "<PackageTags>material;design;react;fsharp;fable</PackageTags>"
-      "<Authors>Justin Sacks</Authors>" 
+      "<Authors>Justin Sacks</Authors>"
       sprintf "<Version>%s</Version>" (string release.SemVer)
       "</PropertyGroup>"
       "</Project>"]
@@ -139,7 +139,7 @@ Target "Publish" DoNothing
         "Package"
         "PublishNuget"
         "Release" ]
-  
-  
+
+
 // start build
 RunTargetOrDefault "Build"

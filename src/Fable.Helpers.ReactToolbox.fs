@@ -74,31 +74,87 @@ let inline appBar b c = rtEl AppBar b c
 
 
 type AutocompleteTheme =
+    /// Used for a suggestion when it's active.
     | Active of string
+    /// Used for the root element.
     | Autocomplete of string
+    /// Used when the input is focused.
     | Focus of string
+    /// Used to style the Input component.
     | Input of string
-    | Label of string
+    /// Used to style each suggestion.
     | Suggestion of string
+    /// Used to style the suggestions container.
     | Suggestions of string
+    /// Used for the suggestions when it's opening to the top.
     | Up of string
+    /// Classname used for a single value.
     | Value of string
+    /// Classname used for the values container.
     | Values of string
 
+[<StringEnum>]
+type AutocompleteDirection = | Auto | Up | Down
+
+[<StringEnum>]
+type SelectedPosition = | Above | Below | None
+
+[<StringEnum>]
+type SuggestionMatch = | Start | Anywhere | Word
+
 type AutocompleteProps =
+    /// Determines if user can create a new option with the current typed value.
+    /// default: `false`
     | AllowCreate of bool
-    | Direction of (* TODO StringEnum auto | up | down *) string
+    /// Determines the opening direction. It can be auto, up or down.
+    /// default: `auto`
+    | Direction of AutocompleteDirection
+    /// If true, component will be disabled.
+    /// default: `false`
     | Disabled of bool
-    | Error of string
-    | Label of string
+    /// Sets the error string for the internal input element.
+    | Error of U2<string, React.ReactNode>
+    /// Whether component should keep focus after value change.
+    /// default: `false`
+    | KeepFocusOnChange of bool
+    /// The text string to use for the floating label element.
+    | Label of U2<string, React.ReactNode>
+    /// If true, component can hold multiple values.
+    /// default: `true`
     | Multiple of bool
-    | OnChange of Function
-    | SelectedPosition of (* TODO StringEnum above | below *) string
-    | ShowSuggestionsWHenValueIsSet of bool
+    /// Callback function that is fired when component is blurred.
+    /// The first argument is event
+    /// The second argument is the currently selected value in the dropdown
+    | OnBlur of ((obj * string) -> unit)
+    /// Callback function that is fired when the components's value changes.
+    /// First argument is the current value of the autocomplete
+    /// Second argument is the event
+    | OnChange of ((U2<string, string[]> * obj) -> unit)
+    /// Callback function that is fired when component is focused.
+    /// The argument is event
+    | OnFocus of (obj -> unit)
+    /// Callback function that is fired when the components's query input value changes.
+    /// First argument is the typed text
+    /// Second argument is event
+    | OnQueryChange of ((string * obj) -> unit)
+    /// Determines if the selected list is shown above or below input. It can be above or below.
+    /// default: `above`
+    | SelectedPosition of SelectedPosition
+    /// Determines if the selected list is shown if the `value` keys don't exist in the source. Only works if passing the `value` prop as an Object.
+    /// default: `false`
+    | ShowSelectedWhenNotInSource of bool
+    /// If true, the list of suggestions will not be filtered when a value is selected, until the query is modified.
+    /// default: `false`
+    | ShowSuggestionsWhenValueIsSet of bool
+    /// Object of key/values or array representing all items suggested.
     | Source of obj
-    | SuggestionMatch of (* TODO StringEnum start | anywhere | word *) string
+    ///  Determines how suggestions are supplied.
+    /// default: `start`
+    | SuggestionMatch of SuggestionMatch
     | Theme of AutocompleteTheme
-    | Value of obj
+    /// Value or array of values currently selected component.
+    /// Either the key of the selected element (as string), or an array of string, if multiple selection is enabled
+    | Value of U2<string, string[]>
     interface IReactToolboxProp
 let Autocomplete = importDefault<ComponentClass<IHTMLProp>> "react-toolbox/lib/autocomplete"
 let inline autocomplete b c = rtEl Autocomplete b c
@@ -341,7 +397,7 @@ type DialogTheme =
 
 [<Pojo>]
 type DialogActionProp =
-    { label: string 
+    { label: string
       onClick: unit -> unit }
 
 type DialogProps =
