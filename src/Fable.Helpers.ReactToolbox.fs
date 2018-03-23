@@ -94,7 +94,9 @@ type AutocompleteProps =
     | Multiple of bool
     | OnChange of Function
     | SelectedPosition of (* TODO StringEnum above | below *) string
-    | ShowSuggestionsWHenValueIsSet of bool
+    /// If true, the list of suggestions will not be filtered when a value is selected, until the query is modified.
+    /// default: `false`
+    | ShowSuggestionsWhenValueIsSet of bool
     | Source of obj
     | SuggestionMatch of (* TODO StringEnum start | anywhere | word *) string
     | Theme of AutocompleteTheme
@@ -341,7 +343,7 @@ type DialogTheme =
 
 [<Pojo>]
 type DialogActionProp =
-    { label: string 
+    { label: string
       onClick: unit -> unit }
 
 type DialogProps =
