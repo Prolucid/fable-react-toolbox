@@ -1,3 +1,8 @@
+### 2.1.1
+
+* Fix Typo in AutocompleteProps.ShowSuggestionsWhenValueIsSet
+* Removed paket storage
+
 ### 2.1.0
 
 * Release version targeting Fable.React 2.1.0
