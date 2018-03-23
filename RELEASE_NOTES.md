@@ -1,6 +1,6 @@
 ### 2.1.1
 
-* Fix Typo in AutocompleteProps.ShowSuggestionsWhenValueIsSet
+* AutocompleteProps fixes
 * Removed paket storage
 
 ### 2.1.0
