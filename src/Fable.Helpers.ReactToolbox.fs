@@ -819,7 +819,7 @@ type RadioGroupProps =
     | OnChange of Function
     | Value of obj
     interface IReactToolboxProp
-let RadioGroup  = importDefault<ComponentClass<IHTMLProp>> "react-toolbox/lib/radio"
+let RadioGroup  = importMember<ComponentClass<IHTMLProp>> "react-toolbox/lib/radio"
 let inline radioGroup b c = rtEl RadioGroup b c
 
 type RadioButtonTheme =
@@ -842,7 +842,7 @@ type RadioButtonProps =
     | Theme of RadioButtonTheme
     | Value of obj
     interface IReactToolboxProp
-let RadioButton  = importDefault<ComponentClass<IHTMLProp>> "react-toolbox/lib/radio"
+let RadioButton  = importMember<ComponentClass<IHTMLProp>> "react-toolbox/lib/radio"
 let inline radioButton b c = rtEl RadioButton b c
 
 

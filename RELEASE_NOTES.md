@@ -1,3 +1,7 @@
+### 2.1.2
+
+* Fixing RadioButton and RadioGroup import statements
+
 ### 2.1.1
 
 * AutocompleteProps fixes
