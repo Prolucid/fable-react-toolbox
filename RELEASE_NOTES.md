@@ -1,3 +1,7 @@
+### 2.1.4
+
+* Downgrading Fable.Core to 1.3.11
+
 ### 2.1.3
 
 * Renaming SelectedPosition "None" case
