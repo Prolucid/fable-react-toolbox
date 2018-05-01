@@ -1,3 +1,7 @@
+### 2.1.3
+
+* Renaming SelectedPosition "None" case
+
 ### 2.1.2
 
 * Fixing RadioButton and RadioGroup import statements

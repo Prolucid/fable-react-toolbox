@@ -97,7 +97,7 @@ type AutocompleteTheme =
 type AutocompleteDirection = | Auto | Up | Down
 
 [<StringEnum>]
-type SelectedPosition = | Above | Below | None
+type SelectedPosition = | Above | Below | [<Emit("None")>] None'
 
 [<StringEnum>]
 type SuggestionMatch = | Start | Anywhere | Word
