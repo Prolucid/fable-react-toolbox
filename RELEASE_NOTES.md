@@ -1,3 +1,7 @@
+### 2.1.5
+
+* Fixing tooltip factory
+
 ### 2.1.4
 
 * Downgrading Fable.Core to 1.3.11
