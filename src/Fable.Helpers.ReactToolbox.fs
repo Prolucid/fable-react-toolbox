@@ -1050,5 +1050,5 @@ type TooltipProps =
     | TooltipDelay of float
     | TooltipHideOnClick of bool
     interface IReactToolboxProp
-let Tooltip  = importDefault<ComponentClass<IHTMLProp>> "react-toolbox/lib/tooltip"
-let inline tooltip b c = rtEl Tooltip b c
+let Tooltip : ComponentClass<IHTMLProp> -> ComponentClass<IHTMLProp> = importDefault<ComponentClass<IHTMLProp> -> ComponentClass<IHTMLProp>> "react-toolbox/lib/tooltip"
+let inline tooltip com b c = rtEl (Tooltip com) b c
