@@ -38,17 +38,15 @@ module Props =
         | OnTouchStart of Function
         | Style of CSSProperties
         interface Fable.Helpers.React.Props.IHTMLProp
-        interface Fable.Helpers.React.Props.ICSSProp
 
     type internal IReactToolboxProp =
         inherit Fable.Helpers.React.Props.IHTMLProp
-        inherit Fable.Helpers.React.Props.ICSSProp
 
 open Props
 
 let styles = JsInterop.importAll<obj> "react-toolbox/lib/commons.scss"
 
-let inline rtEl<[<Pojo>]'P when 'P :> IHTMLProp> (a:ComponentClass<'P>) (b:IHTMLProp list) c = Fable.Helpers.React.from a (keyValueList CaseRules.LowerFirst b |> unbox) c
+let inline rtEl<'P when 'P :> IHTMLProp> (a:ComponentClass<'P>) (b:IHTMLProp list) c = Fable.Helpers.React.from a (keyValueList CaseRules.LowerFirst b |> unbox) c
 
 type AppBarTheme =
     | AppBar of string
@@ -395,7 +393,6 @@ type DialogTheme =
     | Navigation of string
     | Title of string
 
-[<Pojo>]
 type DialogActionProp =
     { label: string
       onClick: unit -> unit }

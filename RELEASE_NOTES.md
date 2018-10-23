@@ -1,3 +1,7 @@
+### 3.0.0-beta-1
+
+* Fable2 release
+
 ### 2.1.5
 
 * Fixing tooltip factory

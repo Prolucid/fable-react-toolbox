@@ -16,7 +16,7 @@ let yarn = ProcessHelper.tryFindFileOnPath (if isWindows then "yarn.cmd" else "y
 let projects  = !! "src/**.fsproj"
 
 
-let dotnetcliVersion = "2.1.100"
+let dotnetcliVersion = "2.1.402"
 let mutable dotnetExePath = "dotnet"
 
 let runDotnet workingDir =

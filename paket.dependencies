@@ -4,7 +4,7 @@ storage:none
 nuget FSharp.Core
 nuget Fable.Core
 nuget Fable.Import.Browser
-nuget Fable.React 2.1.0
+nuget Fable.React
 
 group Build
 framework: net46
